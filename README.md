@@ -14,7 +14,7 @@ Poi:
 - git config --global user.email "you@example.com"
 - git config --global user.name "Your Name"
 
-Fate
+Fate **DENTRO** la directory della repo:
 - git add .
 - git commit -m "Repo inizialittata"
 - git push
