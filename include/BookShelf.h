@@ -1,14 +1,33 @@
-#include "book.h"
+#include "Book.h"
 
 class BookShelf{
 
 public:
-	bookShelf();
-	bookShelf(int size);
+    BookShelf(int size);
+    BookShelf(std::initializer_list<Book> lst);
+    BookShelf(BookShelf&& old);
+    BookShelf(BookShelf& old);
 
-	void push_back(book::book b);
-	book::book pop_back();
+    void pushBack(Book::Book b);
+    Book::Book popBack();
 
+    Book::Book& at (int i);
+    const Book::Book& at (int i) const;
+
+    void safeSet(int i, Book::Book n);
+    double safeGet(int i);
+
+    void reserve(unsigned d);
+    void reduce(unsigned d);
+    unsigned getSize();
+    unsigned getCapacity();
+
+    Book::Book operator[](int i) const;
+    Book::Book& operator[](int i);
+
+    ~BookShelf();
 private:
-    MyVector::MyVector shelf;
+    Book::Book* v;
+    unsigned long int size;
+    unsigned long int capacity;
 };
