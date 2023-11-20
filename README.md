@@ -23,7 +23,7 @@ Fate **DENTRO** la directory della repo:
 Se non dà errori avrete aggiunto le modifiche sulla repo su github.
   
 ## Prima di iniziare a scrivere codice:
-Dovete aggiornare dal main, in caso nel frattempo qualcuno lo abbia modificate.
+Dovete aggiornare dal main, in caso nel frattempo qualcuno lo abbia modificato.
 - git fetch
 - git pull origin master
 
