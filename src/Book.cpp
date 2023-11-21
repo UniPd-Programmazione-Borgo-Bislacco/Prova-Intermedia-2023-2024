@@ -37,7 +37,7 @@ void Book::back(){
     if(is_available_) throw std::logic_error("Il libro era già disponibile. Non può esser stato restituito.");
     is_available_=true;
 }
-
+//TODO -
 bool operator==(const Book& a,const Book& b){
     return a.isbn()==b.isbn();
 }
@@ -45,3 +45,14 @@ bool operator==(const Book& a,const Book& b){
 bool operator!=(const Book& a,const Book& b){
     return a.isbn()!=b.isbn();
 }
+// std::ostream& operator<<(std::ostream& os, Book b){
+//     return os <<"Titolo: "<<b.title()<<std::endl
+//                 <<"Autore: "<<b.name()<<" "<<b.surname()<<std::endl
+//                 <<"ISBN: " <<b.isbn()<<std::endl;
+
+// }
+std::ostream& operator<<(std::ostream& os, Book b){
+    return os <<"Titolo: ";
+
+}
+
