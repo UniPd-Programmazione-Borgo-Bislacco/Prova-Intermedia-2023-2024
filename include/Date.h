@@ -1,27 +1,30 @@
+#include <ostream>
+
 class Date{
 
 public:    
 
-    Date (int y, Month m, int d);
-    
+    Date (int yy, Month mm, int dd);
+
+    Date& operator=(const Date& a);
+
     int day() const;
     Month month() const;
     int year() const; 
 
-    bool operator==(const Date& a);
-    bool operator!=(const Date& a);
-    bool operator>(const Date& a);
-    bool operator<(const Date& a);
-    bool operator>=(const Date& a);
-    bool operator<=(const Date& a);
-
 private:
-    int y, d;
+    unsigned int y, d;
     Month m;
     bool isValid();
 };
 
-
+bool operator==(const Date& a, const Date& b);
+bool operator!=(const Date& a, const Date& b);
+bool operator>(const Date& a, const Date& b);
+bool operator<(const Date& a, const Date& b);
+bool operator>=(const Date& a, const Date& b);
+bool operator<=(const Date& a, const Date& b);
+std::ostream& operator<<(std::ostream& os, Date a);
 
 //Sono diventato morte...il distruttore di header
 
