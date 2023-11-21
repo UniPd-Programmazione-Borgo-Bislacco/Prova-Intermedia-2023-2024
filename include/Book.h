@@ -1,38 +1,56 @@
+#ifndef BOOK_H
+#define BOOK_H
+
+#include <string>
+#include <ostream>
+
 class Book{
 
 public:
 
-//Costruttori xForza
-    book();
-	book(std::string name, std::string surname, std::string title, std::string isbn, Date::Date date, bool is_available);
-	book(book&& old);       //Move constructor
-	book(book& old);        //Costruttore per copia
+	//Costruttori xForza
+   
+	// Book(std::string& name, std::string& surname, std::string& title, std::string& isbn, Date::Date date, bool is_available=kDefaultAvailable);
+	Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
+	Book(Book&& old);       //Move constructor
+	Book(Book& old);        //Costruttore per copia
 
-//Funzioni membro
-	std::string getIsbn();
-	std::string getTitle()
-	std::string getName();
-	std::string getSurname();
-	Date::Date getDate();
-	bool isAvailable();
+	//Funzioni membro
+	std::string name(void) const{ return name_;}
+	std::string surname(void) const {return surname_;}
+	std::string title(void) const {return title_;}
+	std::string isbn(void)  const {return isbn_;}
+	// Date::Date date(void) const {return date_;}
+	bool isAvailable(void) const {return is_available_;}
 
-	bool rent();
-	bool back();
+	void setName(std::string name);
+	void setSurname(std::string surname);
+	void setTitle(std::string title);
+	void setIsbn(std::string isbn);
+	// void setDate(Date::Date date);
+
+	//Per gestire il prestito o il ritorno del libro
+	void rent();
+	void back();
 
 //Overload
-	bool operator==(const book& b);
-	bool operator=!(const book& b);
+	bool operator==(const Book& b);
+	bool operator!=(const Book& b);
 
 
 private:
-	std::string isbn;
-	std::string title;
-	std::string name;
-	std::string surname;
-	Date::Date date;
-	bool is_available;
+	std::string name_;
+	std::string surname_;
+	std::string title_;
+	std::string isbn_;
+	// Date::Date date_;
+	bool is_available_;
+	//Preferisco usare un valore di default anche se è solo un booleano in caso si voglia cambiare se un libro è disponibile di default o meno
+    static constexpr int kDefaultAvailable = true;
 
 };
 
 //Overload Output
-ostream& operator<<(ostream& os, book& b);
+std::ostream& operator<<(std::ostream& os, Book b);
+
+#endif
