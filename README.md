@@ -5,26 +5,28 @@ Brevi spiegazioni su Git
 Per la prova intermedia teniamo un branch main,e uno test al massimo. Oggi provo già a vedere cosa conviene.
 ## Per ora facciamo sul main
 
- Fate il seguente comando per copiare la repo sulla directory
-- git clone https://github.com/UniPd-Programmazione-Borgo-Bislacco/Prova-Intermedia-2023-2024.git
+## Converrebbe fare dei branch
 
-Vi chiederà di **autenticarvi**: inserire mail e poi password. Se non funziona andate in **Settings> Developer** (in fondo) e generate un **token** (meglio se non quello in beta). Conservatelo, se lo perdete dove rigenerarlo ad ogni accesso.
-Entrate nela cartella, mettete i file se avete iniziato.
+Andate qui
 
-Poi:
-- git config --global user.email "you@example.com"
-- git config --global user.name "Your Name"
+![image](https://github.com/UniPd-Programmazione-Borgo-Bislacco/Prova-Intermedia-2023-2024/assets/84403208/5f403e90-fc6e-4775-97c9-3a51d3be464e)
+![image](https://github.com/UniPd-Programmazione-Borgo-Bislacco/Prova-Intermedia-2023-2024/assets/84403208/807bb986-a115-42c7-9897-a85a5fbd8b03)
 
-Fate **DENTRO** la directory della repo:
+Create un branch con la task che dovete fare.
+
+Pullate da quel branch. Usando Vs Code è molto comodo farlo senza sbagliare. Altrimenti: 
+- git pull origin nome_branch
+
+Poi come sempre:
 - git add .
-- git commit -m "Repo inizializzata"
-- git push
-
-Se non dà errori avrete aggiunto le modifiche sulla repo su github.
+- git commit -m "Descrizione"
+- git push origin nome_branch
   
-## Prima di iniziare a scrivere codice:
-Dovete aggiornare dal main, in caso nel frattempo qualcuno lo abbia modificato.
-- git fetch
-- git pull origin master
+Se dovesse dar problemi perché prima avete pushato in un altro branch dovreste fare:
+  
+- git push origin branch_originario:branch_nuovo
 
-Per pushare, fetchare e pullare è molto comodo usare VS Code. Ma non fa molta differenza. 
+## TENETE A MENTE
+  Potete fare più commit (e quindi più descrizioni per ogni modifica) senza pushare ogni volta. Ancora una volta è comodo VS code, altrimenti:
+  - git add file_da_mettere_nel_commit
+  - git commit -m "descrizione"
