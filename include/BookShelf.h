@@ -1,4 +1,7 @@
+#ifndef "BOOKSHELF_H"
+#define "BOOKSHELF_H"
 #include "Book.h"
+#include <ostream>
 
 class BookShelf{
 
@@ -7,6 +10,9 @@ public:
     BookShelf(std::initializer_list<Book> lst);
     BookShelf(BookShelf&& old);
     BookShelf(BookShelf& old);
+
+    BookShelf& operator=(BookShelf& b);
+    BookShelf& operator=(BookShelf&& b);
 
     void pushBack(Book::Book b);
     Book::Book popBack();
@@ -31,3 +37,13 @@ private:
     unsigned long int size;
     unsigned long int capacity;
 };
+
+bool operator==(BookShelf b, BookShelf s);
+bool operator!=(BookShelf b, BookShelf s);
+bool operator<(BookShelf b, BookShelf s);
+bool operator>(BookShelf b, BookShelf s);
+bool operator<=(BookShelf b, BookShelf s);
+bool operator>=(BookShelf b, BookShelf s);
+ostream& operator<<(ostream& os, BookShelf b);
+
+#endif
