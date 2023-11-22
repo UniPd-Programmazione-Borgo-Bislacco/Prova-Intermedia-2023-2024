@@ -3,19 +3,23 @@
 Date::Date (int yy, Month mm, int dd)
     : y{yy}, m{mm}, d{dd}
     {
+        
     }
 
 //Non so se sia corretto passarlo come reference const
-Date& Date::operator=(const Date& a){
+/*a: nope perché poi non puoi passare una stringa come parametro ma devi usare per forza una variabile
+esempio: non puoi fare Date d("blabla") ma devi fare Date d(v)
+*/
+Date& Date::operator=(const Date a){
     y=a.year();
     m=a.month();
     d=a.day();
     return *this;
 }
 
-int Date::day() const{return d;}
-Month Date::month() const{return m;}
-int Date::year() const{return y;} 
+int Date::day() const{return d_;}
+Month Date::month() const{return m_;}
+int Date::year() const{return y_;} 
 
 bool operator==(const Date& a, const Date& b){
     return a.year()==b.year() && a.month()==b.month() && a.day()==b.day();
