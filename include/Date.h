@@ -10,8 +10,8 @@ public:
         jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
     };
     Date (int y, Month m, int d);
-
-    Date& operator=(const Date& a);
+    //CHECK se reference o meno
+    Date& operator=(const Date a);
 
     int day() const;
     Month month() const;
