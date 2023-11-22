@@ -6,10 +6,8 @@ Date::Date (int y, Month m, int d)
     }
 
 //Non so se sia corretto passarlo come reference const
-/*a: nope perché poi non puoi passare una stringa come parametro ma devi usare per forza una variabile
-esempio: non puoi fare Date d("blabla") ma devi fare Date d(v)
-*/
-Date& Date::operator=(const Date a){
+
+Date& Date::operator=(const Date& a){
     y_=a.year();
     m_=a.month();
     d_=a.day();

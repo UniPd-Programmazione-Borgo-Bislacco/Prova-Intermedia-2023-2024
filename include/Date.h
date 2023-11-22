@@ -11,7 +11,7 @@ public:
     };
     Date (int y, Month m, int d);
     //CHECK se reference o meno
-    Date& operator=(const Date a);
+    Date& operator=(const Date& a);
 
     int day() const;
     Month month() const;
