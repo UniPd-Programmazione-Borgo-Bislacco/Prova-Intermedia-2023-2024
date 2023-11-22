@@ -1,21 +1,24 @@
-#include "Date.h"
+#include "../include/Date.h"
 
-Date::Date (int yy, Month mm, int dd)
-    : y{yy}, m{mm}, d{dd}
+Date::Date (int y, Month m, int d)
+    : y_{y}, m_{m}, d_{d}
     {
     }
 
 //Non so se sia corretto passarlo come reference const
-Date& Date::operator=(const Date& a){
-    y=a.year();
-    m=a.month();
-    d=a.day();
+/*a: nope perché poi non puoi passare una stringa come parametro ma devi usare per forza una variabile
+esempio: non puoi fare Date d("blabla") ma devi fare Date d(v)
+*/
+Date& Date::operator=(const Date a){
+    y_=a.year();
+    m_=a.month();
+    d_=a.day();
     return *this;
 }
 
-int Date::day() const{return d;}
-Month Date::month() const{return m;}
-int Date::year() const{return y;} 
+int Date::day() const{return d_;}
+Date::Month Date::month() const{return m_;}
+int Date::year() const{return y_;} 
 
 bool operator==(const Date& a, const Date& b){
     return a.year()==b.year() && a.month()==b.month() && a.day()==b.day();
@@ -59,9 +62,7 @@ bool operator<=(const Date& a, const Date& b){
         return true;   
     return false;
 }
-
-//Non so se ci sia bisogno di questo overload, ma nel dubbio l'ho fatto
-//da editor mi da errore sul << forse a causa dell'overload di <
+//TODO: trova modo senza static_cast cast
 std::ostream& operator<<(std::ostream& os, Date a)
 {
     return os << a.day() << "/" << a.month() << "/" << a.year();
