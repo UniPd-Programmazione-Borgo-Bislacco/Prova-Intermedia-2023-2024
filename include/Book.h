@@ -1,7 +1,7 @@
 #ifndef BOOK_H
 #define BOOK_H
 
-#include <string>
+// #include <string>
 #include <ostream>
 <<<<<<< Updated upstream
 
@@ -15,7 +15,6 @@ public:
 	//Costruttori xForza
 <<<<<<< Updated upstream
    
-	// Book(std::string& name, std::string& surname, std::string& title, std::string& isbn, Date::Date date, bool is_available=kDefaultAvailable);
 	Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
 =======
 	Book();
@@ -61,12 +60,13 @@ private:
 	bool is_available_;
 	//Preferisco usare un valore di default anche se è solo un booleano in caso si voglia cambiare se un libro è disponibile di default o meno
     static constexpr int kDefaultAvailable = true;
+   	// Date kDefaultDate = {2020,Date::Month::mar,1};
 
 };
 	bool operator==(const Book& a,const Book& b);
 	bool operator!=(const Book& a,const Book& b);
 
 //Overload Output
-std::ostream& operator<<(std::ostream& os, Book b);
+std::ostream& operator<<(std::ostream& os, Book& b);
 
 #endif
