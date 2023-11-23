@@ -1,5 +1,6 @@
 #ifndef "BOOKSHELF_H"
 #define "BOOKSHELF_H"
+
 #include "Book.h"
 #include <ostream>
 
@@ -25,17 +26,17 @@ public:
 
     void reserve(unsigned d);
     void reduce(unsigned d);
-    unsigned getSize();
-    unsigned getCapacity();
+    unsigned size();
+    unsigned capacity();
 
     Book::Book operator[](int i) const;
     Book::Book& operator[](int i);
 
     ~BookShelf();
 private:
-    Book::Book* v;
-    unsigned long int size;
-    unsigned long int capacity;
+    Book::Book* v_;
+    unsigned long int size_;
+    unsigned long int capacity_;
 };
 
 bool operator==(BookShelf b, BookShelf s);
