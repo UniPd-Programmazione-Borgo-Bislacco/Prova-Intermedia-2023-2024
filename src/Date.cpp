@@ -1,5 +1,4 @@
 #include "../include/Date.h"
-#include "../include/Month.h"
 
 Date::Date (int y, Month m, int d)
     : y_{y}, m_{m}, d_{d}
@@ -15,9 +14,9 @@ Date& Date::operator=(const Date& a){
     return *this;
 }
 
-int Date::day() const{return d_;}
-Date::Date::month() const{return m_;}
-int Date::year() const{return y_;} 
+// int Date::day() const{return d_;}
+// Date::month() {return m_;}
+// int Date::year() const{return y_;} 
 
 bool Date::isValid(){
     switch(m_){

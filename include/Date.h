@@ -13,13 +13,14 @@ public:
     //CHECK se reference o meno
     Date& operator=(const Date& a);
 
-    int day() const;
-    Month month() const;
-    int year() const; 
+    int day() const{return d_;};
+    Month month() const{return m_;};
+    int year() const{return y_;}; 
 
 private:
     int y_, d_;
     Month m_;
+    bool isLeap();
     bool isValid();
 };
 
