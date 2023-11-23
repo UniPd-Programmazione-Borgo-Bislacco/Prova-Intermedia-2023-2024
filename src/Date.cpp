@@ -13,6 +13,19 @@ Date& Date::operator=(const Date& a){
     d_=a.day();
     return *this;
 }
+//Move constructor
+Date::Date(Date&& old)
+    : y_{old.year()}, m_{old.month()}, d_{old.day()}
+{
+
+    //Qua bisogna scegliere cosa fare con la vecchia data
+
+}  
+//Copy Constructor     
+Date::Date(Date& old)
+    : y_{old.year()}, m_{old.month()}, d_{old.day()}
+{
+}
 
 // int Date::day() const{return d_;}
 // Date::month() {return m_;}
