@@ -1,17 +1,17 @@
 #ifndef BOOK_H
 #define BOOK_H
 
-#include <string>
+// #include <string>
 #include <ostream>
-
+// #include "Date.h"
 class Book{
 
 public:
 
 	//Costruttori xForza
    
-	// Book(std::string& name, std::string& surname, std::string& title, std::string& isbn, Date::Date date, bool is_available=kDefaultAvailable);
 	Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
+	// Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
 	Book(Book&& old);       //Move constructor
 	Book(Book& old);        //Costruttore per copia
 
@@ -43,14 +43,15 @@ private:
 	std::string surname_;
 	std::string title_;
 	std::string isbn_;
-	// Date::Date date_;
+	// Date date_;
 	bool is_available_;
 	//Preferisco usare un valore di default anche se è solo un booleano in caso si voglia cambiare se un libro è disponibile di default o meno
     static constexpr int kDefaultAvailable = true;
+   	// Date kDefaultDate = {2020,Date::Month::mar,1};
 
 };
 
 //Overload Output
-std::ostream& operator<<(std::ostream& os, Book b);
+std::ostream& operator<<(std::ostream& os, Book& b);
 
 #endif
