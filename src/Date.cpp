@@ -1,4 +1,5 @@
 #include "../include/Date.h"
+#include "../include/Month.h"
 
 Date::Date (int y, Month m, int d)
     : y_{y}, m_{m}, d_{d}
@@ -15,8 +16,36 @@ Date& Date::operator=(const Date& a){
 }
 
 int Date::day() const{return d_;}
-Date::Month Date::month() const{return m_;}
+Date::Date::month() const{return m_;}
 int Date::year() const{return y_;} 
+
+bool Date::isValid(){
+    switch(m_){
+        case(4,6,9,11):if(d_<1 || d_>30) return false; break;
+        case(2): 
+            if(isLeap())
+                if(d_<1 || d_>29)
+                {                        
+                    return false; 
+                }
+            else
+                if(d_<1 || d_<28)
+                    return false;
+            break;
+        default:if(d_<1 || d_>31) return false;
+    }
+    return true;
+}
+
+bool Date::isLeap(){
+    if(y_%400==0)
+        return true;
+    else if(y_%100==0)
+        return false;
+    else if(y_%4==0)
+        return true;
+    return false;
+}
 
 bool operator==(const Date& a, const Date& b){
     return a.year()==b.year() && a.month()==b.month() && a.day()==b.day();
