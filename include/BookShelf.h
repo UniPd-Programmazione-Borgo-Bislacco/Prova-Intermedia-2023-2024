@@ -8,20 +8,20 @@ class BookShelf{
 
 public:
   BookShelf(int size);
-  BookShelf(std::initializer_list<Book> lst);
-  BookShelf(BookShelf& old);
+  BookShelf(const std::initializer_list<Book>& lst);
+  BookShelf(const BookShelf& old);
   BookShelf(BookShelf&& old);
 
-  BookShelf& operator=(BookShelf& b);
+  BookShelf& operator=(const BookShelf& b);
   BookShelf& operator=(BookShelf&& b);
 
-  void pushBack(Book b);
+  void pushBack(const Book& b);
   Book popBack();
 
   Book& at (int i);
   const Book& at (int i) const;
 
-  void safeSet(int i, Book n);
+  void safeSet(int i, const Book& n);
   Book& safeGet(int i);
 
   void reserve(unsigned d);
@@ -39,12 +39,12 @@ private:
   unsigned long int capacity_;
 };
 
-bool operator==(BookShelf b, BookShelf s);
-bool operator!=(BookShelf b, BookShelf s);
-bool operator<(BookShelf b, BookShelf s);
-bool operator>(BookShelf b, BookShelf s);
-bool operator<=(BookShelf b, BookShelf s);
-bool operator>=(BookShelf b, BookShelf s);
-std::ostream& operator<<(std::ostream& os, BookShelf b);
+bool operator==(const BookShelf& b, const BookShelf& s);
+bool operator!=(const BookShelf& b, const BookShelf& s);
+bool operator<(const BookShelf& b, const BookShelf& s);
+bool operator>(const BookShelf& b, const BookShelf& s);
+bool operator<=(const BookShelf& b, const BookShelf& s);
+bool operator>=(const BookShelf& b, const BookShelf& s);
+std::ostream& operator<<(std::ostream& os, const BookShelf& b);
 
 #endif
