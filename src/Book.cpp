@@ -3,20 +3,42 @@
 // #include <string>
 #include <stdexcept>
 
-Book::Book(std::string name, std::string surname, std::string title, std::string isbn,  bool is_available) 
-     :name_{name},surname_{surname},title_{title}, isbn_{isbn},is_available_{is_available}
+Book::Book(bool valid)
+  :name_{""},surname_{""},title_{""}, isbn_{""},date_{valid},is_available_{false}
 {
-        if (isbn.size() != 13) {
-            throw std::invalid_argument("Il codice ISBN deve essere di 13 caratteri.");
-        }
+
+}
+
+Book::Book(std::string name, std::string surname, std::string title, std::string isbn,  bool is_available)
+  :name_{name},surname_{surname},title_{title}, isbn_{isbn},is_available_{is_available}
+{
+  if (isbn.size() != 13) {
+    throw std::invalid_argument("Il codice ISBN deve essere di 13 caratteri.");
+  }
 }
 
 void Book::setIsbn(std::string isbn){
-    if (isbn.size() != 13) {
-        throw std::invalid_argument("Il codice ISBN deve essere di 13 caratteri.");
-    }
-    isbn_ = isbn;
+  if (isbn.size() != 13) {
+    throw std::invalid_argument("Il codice ISBN deve essere di 13 caratteri.");
+  }
+  isbn_ = isbn;
 }
+
+Book::Book(Book&& old)
+  :name_{old.name_},surname_{old.surname_},title_{old.title},isbn_{old.isbn},date_{old.date_},is_available_{old.is_available_}
+{
+  old.setName("");
+  old.setSurname("");
+  old.setTitle("");
+  old.setIsbn("");
+}
+Book::Book(Book& old)
+{
+
+}
+
+Book& operator=(const Book& old);
+Book& operator=(Book&& old);
 
 void Book::setTitle(std::string name){name_ = name;}
 

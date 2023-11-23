@@ -15,7 +15,7 @@ Date::Date (int y, Month m, int d)
 //Non so se sia corretto passarlo come reference const
 
 Date& Date::operator=(const Date& a){
-  if(this==a)
+  if(*this==a)
     return *this;
   y_=a.year();
   m_=a.month();
@@ -25,7 +25,7 @@ Date& Date::operator=(const Date& a){
 
 Date& Date::operator=(Date&& a)
 {
-  if(this==a)
+  if(*this==a)
     return *this;
   y_=a.year();
   m_=a.month();
@@ -34,7 +34,7 @@ Date& Date::operator=(Date&& a)
   return *this;
 }
 
-void setDate(int y, Month m, int d)
+void Date::setDate(int y, Month m, int d)
 {
 
 }

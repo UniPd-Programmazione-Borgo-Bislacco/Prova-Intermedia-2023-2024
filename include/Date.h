@@ -10,8 +10,8 @@ public:
         jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
     };
     //Costruttori
-    Date (bool valid=true);
-    Date (int y, Month m, int d, bool valid=true);
+    Date ();
+    Date (int y, Month m, int d);
     Date(Date&& old);       //Move constructor
     Date(Date& old);        //Costruttore per copia
     //CHECK se reference o meno
@@ -23,12 +23,10 @@ public:
     int day() const{return d_;};
     Month month() const{return m_;};
     int year() const{return y_;};
-    bool valid() const{return valid_;}
 
 private:
     int y_, d_;
     Month m_;
-    bool valid_;
     bool isLeap();  //Controllo dell'anno bisestile
     bool isValid(); //Controllo validità della data
 };
