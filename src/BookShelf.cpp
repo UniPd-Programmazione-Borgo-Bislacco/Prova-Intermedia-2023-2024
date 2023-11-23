@@ -4,147 +4,152 @@
 
 using namespace std;
 
-MyVector::MyVector(int s=1)
+BookShelf::BookShelf(int size=1)
 {
   if(s>=0){
-    size=s;
-    v=new Book::Book[s];
-    capacity=s;
+    size_=s;
+    v_=new Book::Book[s];
+    capacity_=s;
   }else{
-    size=1;
-    v=new Book::Book[1];
-    capacity=1;
+    size_=1;
+    v_=new Book::Book[1];
+    capacity_=1;
   }
 }
 
-MyVector::MyVector(initializer_list<Book::Book> lst)
-  : size{lst.size()}, v{new Book::Book[lst.size()]}, capacity{lst.size()}
+BookShelf::BookShelf(initializer_list<Book::Book> lst)
+  : size_{lst.size()}, v_{new Book::Book[lst.size()]}, capacity_{lst.size()}
 {
-  copy(lst.begin(), lst.end(), v);
+  copy(lst.begin(), lst.end(), v_);
 }
 
 BookShelf(BookShelf&& old)
-  : size{old.getSize()}, v{old.v}, capacity{old.getSize()}
+  : size_{old.size()}, v_{new Book::Book[old.getize()]}, capacity_{old.size()}
 {
-    old.size=1;
-    old.v=new Book::Book[1];
-    old.capacity=1;
+  std::copy(old[0],old[old.size()-1],v_);
+  old.size_=1;
+  old.v_=new Book::Book[1];
+  old.capacity_=1;
 }
 
 BookShelf(BookShelf& old)
-  : size{lst.size()}, v{new Book::Book[old.getSize()]}, capacity{lst.size()}
+  : size_{old.size()}, v_{new Book::Book[old.size()]}, capacity_{old.size()}
 {
-    std::copy(old[0],old[old.getSize()-1],v);
+  std::copy(old[0],old[old.size()-1],v_);
 }
 
 BookShelf& operator=(BookShelf& b)
 {
-    size=b.size;
-    capacity=b.capacity;
-    for(int i=0;i<size;i++)
-        v[i]=b[i];
+  size_=b.size_;
+  capacity_=b.capacity_;
+  delete[] v_;
+  v_=new Book::Book[size_];
+  std::copy(b[0],b[b.size()-1],v_);
 }
 
 BookShelf& operator=(BookShelf&& b)
 {
-    size=b.size;
-    capacity=b.capacity;
-    v=b.v;
-    b.size=1;
-    b.capacity=1;
-    b.v=new Book::Book[1];
-}
-Book::Book MyVector::operator[](int i) const
-{
-  return v[i];
+  size_=b.size_;
+  capacity_=b.capacity_;
+  delete[] v_;
+  v_=new Book::Book[size_];
+  std::copy(b[0],b[b.size()-1],v_);
+  b.size_=1;
+  b.capacity_=1;
+  b.v_=new Book::Book[1];
 }
 
-Book::Book& MyVector::operator[](int i)
+void BookShelf::push_back(Book::Book i)
 {
-  return v[i];
-}
-
-Book::Book& MyVector::at (int i)
-{
-  if(i>=size)
-    throw(out_of_range("Out of bounds"));
-  return v[i];
-}
-
-const Book::Book& MyVector::at (int i) const
-{
-  if(i>=size)
-    throw(out_of_range("Out of bounds"));
-  return v[i];
-}
-
-void MyVector::safe_set(int i, Book::Book b)
-{
-  if(i>size || i<0)
-    throw(out_of_range("Out of bounds"));
-  v[i]=b;
-}
-
-Book::Book MyVector::safe_get(int i)
-{
-  if(i>size || i<0)
-    throw(out_of_range("Out of bounds"));
-  return v[i];
-}
-
-void MyVector::push_back(Book::Book i)
-{
-  if (size>=(2*capacity/3))
+  if (size_>=(2*capacity/3))
     reserve(capacity*2);
-  v[size]=i;
-  size++;
+  v[size_]=i;
+  size_++;
 }
 
-Book::Book MyVector::pop_back()
+Book::Book BookShelf::pop_back()
 {
-  if (size<=(capacity/2))
-    reduce(2*capacity/3);
-  return v[size--];
+  if (size_<=(capacity_/2))
+    reduce(2*capacity_/3);
+  return v_[size_--];
 }
 
-void MyVector::reserve(unsigned d)
+Book::Book& BookShelf::at (int i)
 {
-  if(d<=capacity)
+  if(i>=size_)
+    throw(out_of_range("Out of bounds"));
+  return v_[i];
+}
+
+const Book::Book& BookShelf::at (int i) const
+{
+  if(i>=size_)
+    throw(out_of_range("Out of bounds"));
+  return v_[i];
+}
+
+void BookShelf::safe_set(int i, Book::Book b)
+{
+  if(i>size_ || i<0)
+    throw(out_of_range("Out of bounds"));
+  v_[i]=b;
+}
+
+Book::Book& BookShelf::safe_get(int i)
+{
+  if(i>size_ || i<0)
+    throw(out_of_range("Out of bounds"));
+  return v_[i];
+}
+
+void BookShelf::reserve(unsigned d)
+{
+  if(d<=capacity_)
     return;
   Book::Book* t=new Book::Book[d];
-  for(unsigned i=0;i<size;i++){
-    t[i]=v[i];
+  for(unsigned i=0;i<size_;i++){
+    t[i]=v_[i];
   }
-  delete[] v;
-  v=t;
-  capacity=d;
+  delete[] v_;
+  v_=t;
+  capacity_=d;
 }
 
-void MyVector::reduce(unsigned d)
+void BookShelf::reduce(unsigned d)
 {
-  if(d>=capacity)
+  if(d>=capacity_)
     return;
   Book::Book* t=new Book::Book[d];
-  for(unsigned i=0;i<size;i++){
-    t[i]=v[i];
+  for(unsigned i=0;i<size_;i++){
+    t[i]=v_[i];
   }
-  delete[] v;
-  v=t;
-  capacity=d;
+  delete[] v_;
+  v_=t;
+  capacity_=d;
 }
 
-unsigned MyVector::capacity()
+unsigned BookShelf::size() const
 {
-    return capacity;
+  return size_;
 }
 
-unsigned MyVector::length()
+unsigned BookShelf::capacity() const
 {
-    return size;
+  return capacity_;
 }
 
-MyVector::~MyVector()
+Book::Book BookShelf::operator[](int i) const
 {
-  delete[] v;
+  return v_[i];
+}
+
+Book::Book& BookShelf::operator[](int i)
+{
+  return v_[i];
+}
+
+BookShelf::~BookShelf()
+{
+  delete[] v_;
 }
 

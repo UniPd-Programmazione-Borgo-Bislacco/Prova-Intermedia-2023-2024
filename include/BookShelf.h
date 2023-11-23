@@ -1,5 +1,5 @@
-#ifndef "BOOKSHELF_H"
-#define "BOOKSHELF_H"
+#ifndef BOOKSHELF_H
+#define BOOKSHELF_H
 
 #include "Book.h"
 #include <ostream>
@@ -7,36 +7,36 @@
 class BookShelf{
 
 public:
-    BookShelf(int size);
-    BookShelf(std::initializer_list<Book> lst);
-    BookShelf(BookShelf&& old);
-    BookShelf(BookShelf& old);
+  BookShelf(int size);
+  BookShelf(std::initializer_list<Book> lst);
+  BookShelf(BookShelf& old);
+  BookShelf(BookShelf&& old);
 
-    BookShelf& operator=(BookShelf& b);
-    BookShelf& operator=(BookShelf&& b);
+  BookShelf& operator=(BookShelf& b);
+  BookShelf& operator=(BookShelf&& b);
 
-    void pushBack(Book::Book b);
-    Book::Book popBack();
+  void pushBack(Book b);
+  Book popBack();
 
-    Book::Book& at (int i);
-    const Book::Book& at (int i) const;
+  Book& at (int i);
+  const Book& at (int i) const;
 
-    void safeSet(int i, Book::Book n);
-    double safeGet(int i);
+  void safeSet(int i, Book n);
+  Book& safeGet(int i);
 
-    void reserve(unsigned d);
-    void reduce(unsigned d);
-    unsigned size();
-    unsigned capacity();
+  void reserve(unsigned d);
+  void reduce(unsigned d);
+  unsigned size() const;
+  unsigned capacity() const;
 
-    Book::Book operator[](int i) const;
-    Book::Book& operator[](int i);
+  Book operator[](int i) const;
+  Book& operator[](int i);
 
-    ~BookShelf();
+  ~BookShelf();
 private:
-    Book::Book* v_;
-    unsigned long int size_;
-    unsigned long int capacity_;
+  Book* v_;
+  unsigned long int size_;
+  unsigned long int capacity_;
 };
 
 bool operator==(BookShelf b, BookShelf s);
@@ -45,6 +45,6 @@ bool operator<(BookShelf b, BookShelf s);
 bool operator>(BookShelf b, BookShelf s);
 bool operator<=(BookShelf b, BookShelf s);
 bool operator>=(BookShelf b, BookShelf s);
-ostream& operator<<(ostream& os, BookShelf b);
+std::ostream& operator<<(std::ostream& os, BookShelf b);
 
 #endif
