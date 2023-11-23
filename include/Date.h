@@ -2,6 +2,14 @@ class Date{
 
 public:    
 
+<<<<<<< Updated upstream
+=======
+    enum Month{
+        jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
+    };
+    //Costruttori
+    Date();
+>>>>>>> Stashed changes
     Date (int y, Month m, int d);
     
     int day() const;

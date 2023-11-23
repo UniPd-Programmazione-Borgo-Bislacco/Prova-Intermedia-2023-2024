@@ -3,15 +3,26 @@
 
 #include <string>
 #include <ostream>
+<<<<<<< Updated upstream
 
+=======
+#include "Date.h"
+>>>>>>> Stashed changes
 class Book{
 
 public:
 
 	//Costruttori xForza
+<<<<<<< Updated upstream
    
 	// Book(std::string& name, std::string& surname, std::string& title, std::string& isbn, Date::Date date, bool is_available=kDefaultAvailable);
 	Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
+=======
+	Book();
+	Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
+	Book(std::string name, std::string surname, std::string title, std::string isbn, Date copyright_date ,bool is_available=kDefaultAvailable);
+	// Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
+>>>>>>> Stashed changes
 	Book(Book&& old);       //Move constructor
 	Book(Book& old);        //Costruttore per copia
 
@@ -20,22 +31,21 @@ public:
 	std::string surname(void) const {return surname_;}
 	std::string title(void) const {return title_;}
 	std::string isbn(void)  const {return isbn_;}
-	// Date::Date date(void) const {return date_;}
+	//TODO vedere costruttore di copia
+	Date date(void)  {return copyright_date_;}
 	bool isAvailable(void) const {return is_available_;}
 
 	void setName(std::string name);
 	void setSurname(std::string surname);
 	void setTitle(std::string title);
 	void setIsbn(std::string isbn);
-	// void setDate(Date::Date date);
+	void setDate(Date copyright_date);
 
 	//Per gestire il prestito o il ritorno del libro
 	void rent();
 	void back();
 
 //Overload
-	bool operator==(const Book& b);
-	bool operator!=(const Book& b);
 
 
 private:
@@ -43,12 +53,18 @@ private:
 	std::string surname_;
 	std::string title_;
 	std::string isbn_;
+<<<<<<< Updated upstream
 	// Date::Date date_;
+=======
+	Date copyright_date_;
+>>>>>>> Stashed changes
 	bool is_available_;
 	//Preferisco usare un valore di default anche se è solo un booleano in caso si voglia cambiare se un libro è disponibile di default o meno
     static constexpr int kDefaultAvailable = true;
 
 };
+	bool operator==(const Book& a,const Book& b);
+	bool operator!=(const Book& a,const Book& b);
 
 //Overload Output
 std::ostream& operator<<(std::ostream& os, Book b);
