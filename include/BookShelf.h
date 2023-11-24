@@ -26,8 +26,8 @@ public:
 
   void reserve(unsigned d);
   void reduce(unsigned d);
-  unsigned size() const;
-  unsigned capacity() const;
+  unsigned size() const     {return size_;};
+  unsigned capacity() const {return capacity_;};
 
   Book operator[](int i) const;
   Book& operator[](int i);
