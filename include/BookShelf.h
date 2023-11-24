@@ -16,7 +16,7 @@ public:
   BookShelf& operator=(BookShelf&& b);
 
   void pushBack(const Book& b);
-  Book popBack();
+  Book& popBack();
 
   Book& at (int i);
   const Book& at (int i) const;
@@ -34,7 +34,7 @@ public:
 
   ~BookShelf();
 private:
-  Book* v_;
+  Book** v_;
   unsigned long int size_;
   unsigned long int capacity_;
 };
