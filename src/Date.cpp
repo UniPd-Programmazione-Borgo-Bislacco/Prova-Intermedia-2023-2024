@@ -41,10 +41,6 @@ void Date::setDate(int y, Month m, int d)
     d_=d;
 }
 
-void Date::setDate(int y, Month m, int d)
-{
-
-}
 
 //Move constructor
 Date::Date(Date&& old)

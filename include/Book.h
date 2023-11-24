@@ -12,7 +12,6 @@ public:
 
 	//Costruttori xForza
 	Book(std::string name, std::string surname, std::string title, std::string isbn, Date copyright_date ,bool is_available=kDefaultAvailable);
-=======
 	Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
 	Book();
 	// Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
