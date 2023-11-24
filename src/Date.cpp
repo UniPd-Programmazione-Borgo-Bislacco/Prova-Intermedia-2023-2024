@@ -1,4 +1,6 @@
 #include "../include/Date.h"
+#include <iostream>
+#include <stdexcept>
 
 Date::Date()
 {
@@ -8,39 +10,45 @@ Date::Date()
 }
 
 Date::Date (int y, Month m, int d)
-    : y_{y}, m_{m}, d_{d}
     {
+        if(!isValid(y, m, d))
+            throw std::invalid_argument("Data non valida");
+        y_= {y}; 
+        m_= {m}; 
+        d_= {d};
     }
 
 //Non so se sia corretto passarlo come reference const
 
-// Date& Date::operator=(const Date& a){
-//   if(*this==a)
-//     return *this;
-//   y_=a.year();
-//   m_=a.month();
-//   d_=a.day();
-//   return *this;
-// }
+Date& Date::operator=(const Date& a){
+   if(*this==a)
+     return *this;
+   y_=a.year();
+   m_=a.month();
+   d_=a.day();
+   return *this;
+}
 
-// Date& Date::operator=(Date&& a)
-// {
-//   if(*this==a)
-//     return *this;
-//   y_=a.year();
-//   m_=a.month();
-//   d_=a.day();
-//   a.setDate(1709,Month::jan,1);
-//   return *this;
-// }
+Date& Date::operator=(Date&& a)
+{
+if(*this==a)
+return *this;
+   y_=a.year();
+   m_=a.month();
+   d_=a.day();
+   a.setDate(1709,Month::jan,1);
+   return *this;
+ }
 
 void Date::setDate(int y, Month m, int d)
 {
-    y_=y;
-    m_=m;
-    d_=d;
+    if(!isValid(y, m, d))
+        throw std::invalid_argument("Data non valida");
+    y_= {y}; 
+    m_= {m}; 
+    d_= {d};
+    
 }
-
 
 //Move constructor
 Date::Date(Date&& old)
@@ -49,7 +57,7 @@ Date::Date(Date&& old)
   old.setDate(1709,Month::jan,1);
 }
 //Copy Constructor
-Date::Date(Date& old)
+Date::Date(const Date& old)
     : y_{old.year()}, m_{old.month()}, d_{old.day()}
 {
 }
@@ -58,20 +66,29 @@ Date::Date(Date& old)
 // Date::month() {return m_;}
 // int Date::year() const{return y_;}
 
-bool Date::isValid(){     // con parametri
-    switch(m_){
-        case(4,6,9,11):if(d_<1 || d_>30) return false; break;
+bool Date::isValid(int y, Month m, int d){     // con parametri
+    if(y<1582)
+        return false; //Controllo se fa parte del calendario gregoriano
+    switch(m){
+        case(4):
+        case(6):
+        case(9):
+        case(11):
+            if(d<1 || d>30) return false; break;
         case(2):
-            if(isLeap())
-                if(d_<1 || d_>29)
+            if(isLeap()){
+                if(d<1 || d>29)
                 {
                     return false;
                 }
-            else
-                if(d_<1 || d_<28)
+            }
+            else{
+                if(d<1 || d>28){
                     return false;
+                }
+            }
             break;
-        default:if(d_<1 || d_>31) return false;
+        default:if(d<1 || d>31) return false;
     }
     return true;
 }
