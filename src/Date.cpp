@@ -14,24 +14,31 @@ Date::Date (int y, Month m, int d)
 
 //Non so se sia corretto passarlo come reference const
 
-Date& Date::operator=(const Date& a){
-  if(*this==a)
-    return *this;
-  y_=a.year();
-  m_=a.month();
-  d_=a.day();
-  return *this;
-}
+// Date& Date::operator=(const Date& a){
+//   if(*this==a)
+//     return *this;
+//   y_=a.year();
+//   m_=a.month();
+//   d_=a.day();
+//   return *this;
+// }
 
-Date& Date::operator=(Date&& a)
+// Date& Date::operator=(Date&& a)
+// {
+//   if(*this==a)
+//     return *this;
+//   y_=a.year();
+//   m_=a.month();
+//   d_=a.day();
+//   a.setDate(1709,Month::jan,1);
+//   return *this;
+// }
+
+void Date::setDate(int y, Month m, int d)
 {
-  if(*this==a)
-    return *this;
-  y_=a.year();
-  m_=a.month();
-  d_=a.day();
-  a.setDate(1709,Month::jan,1);
-  return *this;
+    y_=y;
+    m_=m;
+    d_=d;
 }
 
 void Date::setDate(int y, Month m, int d)
@@ -130,3 +137,4 @@ std::ostream& operator<<(std::ostream& os, Date a)
 {
     return os << a.day() << "/" << a.month() << "/" << a.year();
 }
+
