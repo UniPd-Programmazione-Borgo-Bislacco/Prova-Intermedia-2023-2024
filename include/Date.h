@@ -6,20 +6,17 @@ class Date{
 
 public:    
 
-<<<<<<< Updated upstream
-=======
     enum Month{
         jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
     };
     //Costruttori
     Date();
->>>>>>> Stashed changes
     Date (int y, Month m, int d);
     Date(Date&& old);       //Move constructor
 	Date(Date& old);        //Costruttore per copia
     //CHECK se reference o meno
-    Date& operator=(const Date& a);
-
+    // Date& operator=(const Date& a);
+    void setDate(int y, Month m, int d);
     int day() const{return d_;};
     Month month() const{return m_;};
     int year() const{return y_;}; 

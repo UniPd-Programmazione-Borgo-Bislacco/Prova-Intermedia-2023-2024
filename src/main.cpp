@@ -1,18 +1,14 @@
 #include <iostream>
 #include "../include/Book.h"
-<<<<<<< Updated upstream
-=======
 #include "../include/Date.h"
-#include "../include/BookShelf.h"
+// #include "../include/BookShelf.h"
 #include <string>
->>>>>>> Stashed changes
 
 using namespace std;
 
 void tester();
 int main(){
     tester();
-    BookShelf bs(9);
     return 0;
 }
 
