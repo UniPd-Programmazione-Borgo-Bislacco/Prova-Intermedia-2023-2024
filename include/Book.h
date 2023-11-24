@@ -12,6 +12,7 @@ public:
 
 	//Costruttori xForza
 	Book(std::string name, std::string surname, std::string title, std::string isbn, Date copyright_date ,bool is_available=kDefaultAvailable);
+=======
 	Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
 	Book();
 	// Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
@@ -50,9 +51,10 @@ private:
 	std::string title_;
 	std::string isbn_;
 	Date copyright_date_;
+
 	bool is_available_;
 	//Preferisco usare un valore di default anche se è solo un booleano in caso si voglia cambiare se un libro è disponibile di default o meno
-    static constexpr int kDefaultAvailable = true;
+  static constexpr int kDefaultAvailable = true;
    	// Date kDefaultDate = {2020,Date::Month::mar,1};
 
 };

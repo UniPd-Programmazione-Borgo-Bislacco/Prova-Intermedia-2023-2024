@@ -41,6 +41,11 @@ void Date::setDate(int y, Month m, int d)
     d_=d;
 }
 
+void Date::setDate(int y, Month m, int d)
+{
+
+}
+
 //Move constructor
 Date::Date(Date&& old)
     : y_{old.year()}, m_{old.month()}, d_{old.day()}
@@ -132,3 +137,4 @@ std::ostream& operator<<(std::ostream& os, Date a)
 {
     return os << a.day() << "/" << a.month() << "/" << a.year();
 }
+

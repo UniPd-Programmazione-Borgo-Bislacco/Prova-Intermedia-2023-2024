@@ -1,104 +1,108 @@
 #include <iostream>
+#include <string>
 #include <stdexcept>
 #include "../include/BookShelf.h"
-
-using namespace std;
+#include "../include/Book.h"
 
 BookShelf::BookShelf(int size=1)
 {
-  if(s>=0){
-    size_=s;
-    v_=new Book::Book[s];
-    capacity_=s;
+  if(size>=0){
+    size_=size;
+    v_=new Book[size];
+    capacity_=size;
   }else{
     size_=1;
-    v_=new Book::Book[1];
+    v_=new Book[1];
     capacity_=1;
   }
 }
 
-BookShelf::BookShelf(initializer_list<Book::Book> lst)
-  : size_{lst.size()}, v_{new Book::Book[lst.size()]}, capacity_{lst.size()}
+BookShelf::BookShelf(const std::initializer_list<Book>& lst)
+  : size_{lst.size()}, v_{new Book[lst.size()]}, capacity_{lst.size()}
 {
-  copy(lst.begin(), lst.end(), v_);
+  std::copy(lst.begin(), lst.end(), v_);
 }
 
-BookShelf(BookShelf&& old)
-  : size_{old.size()}, v_{new Book::Book[old.getize()]}, capacity_{old.size()}
+BookShelf::BookShelf(const BookShelf& old)
+  : size_{old.size()}, v_{new Book[old.size()]}, capacity_{old.size()}
 {
-  std::copy(old[0],old[old.size()-1],v_);
+  for(int i=0;i<old.size()-1;i++)
+    v_[i]=old[i];
+}
+
+BookShelf::BookShelf(BookShelf&& old)
+  : size_{old.size()}, v_{new Book[old.size()]}, capacity_{old.size()}
+{
+  for(int i=0;i<old.size()-1;i++)
+    v_[i]=old[i];
   old.size_=1;
-  old.v_=new Book::Book[1];
+  old.v_=new Book[1];
   old.capacity_=1;
 }
 
-BookShelf(BookShelf& old)
-  : size_{old.size()}, v_{new Book::Book[old.size()]}, capacity_{old.size()}
-{
-  std::copy(old[0],old[old.size()-1],v_);
-}
-
-BookShelf& operator=(BookShelf& b)
+BookShelf& BookShelf::operator=(const BookShelf& b)
 {
   size_=b.size_;
   capacity_=b.capacity_;
   delete[] v_;
-  v_=new Book::Book[size_];
-  std::copy(b[0],b[b.size()-1],v_);
+  v_=new Book[size_];
+  for(int i=0;i<b.size()-1;i++)
+    v_[i]=b[i];
 }
 
-BookShelf& operator=(BookShelf&& b)
+BookShelf& BookShelf::operator=(BookShelf&& b)
 {
   size_=b.size_;
   capacity_=b.capacity_;
   delete[] v_;
-  v_=new Book::Book[size_];
-  std::copy(b[0],b[b.size()-1],v_);
+  v_=new Book[size_];
+  for(int i=0;i<b.size()-1;i++)
+    v_[i]=b[i];
   b.size_=1;
   b.capacity_=1;
-  b.v_=new Book::Book[1];
+  b.v_=new Book[1];
 }
 
-void BookShelf::push_back(Book::Book i)
+void BookShelf::pushBack(const Book& i)
 {
-  if (size_>=(2*capacity/3))
-    reserve(capacity*2);
-  v[size_]=i;
+  if (size_>=(2*capacity_/3))
+    reserve(capacity_*2);
+  v_[size_]=i;
   size_++;
 }
 
-Book::Book BookShelf::pop_back()
+Book BookShelf::popBack()
 {
   if (size_<=(capacity_/2))
     reduce(2*capacity_/3);
   return v_[size_--];
 }
 
-Book::Book& BookShelf::at (int i)
+Book& BookShelf::at (int i)
 {
   if(i>=size_)
-    throw(out_of_range("Out of bounds"));
+    throw(std::out_of_range("Out of bounds"));
   return v_[i];
 }
 
-const Book::Book& BookShelf::at (int i) const
+const Book& BookShelf::at (int i) const
 {
   if(i>=size_)
-    throw(out_of_range("Out of bounds"));
+    throw(std::out_of_range("Out of bounds"));
   return v_[i];
 }
 
-void BookShelf::safe_set(int i, Book::Book b)
+void BookShelf::safeSet(int i, const Book& b)
 {
   if(i>size_ || i<0)
-    throw(out_of_range("Out of bounds"));
+    throw(std::out_of_range("Out of bounds"));
   v_[i]=b;
 }
 
-Book::Book& BookShelf::safe_get(int i)
+Book& BookShelf::safeGet(int i)
 {
   if(i>size_ || i<0)
-    throw(out_of_range("Out of bounds"));
+    throw(std::out_of_range("Out of bounds"));
   return v_[i];
 }
 
@@ -106,7 +110,7 @@ void BookShelf::reserve(unsigned d)
 {
   if(d<=capacity_)
     return;
-  Book::Book* t=new Book::Book[d];
+  Book* t=new Book[d];
   for(unsigned i=0;i<size_;i++){
     t[i]=v_[i];
   }
@@ -119,7 +123,7 @@ void BookShelf::reduce(unsigned d)
 {
   if(d>=capacity_)
     return;
-  Book::Book* t=new Book::Book[d];
+  Book* t=new Book[d];
   for(unsigned i=0;i<size_;i++){
     t[i]=v_[i];
   }
@@ -138,12 +142,12 @@ unsigned BookShelf::capacity() const
   return capacity_;
 }
 
-Book::Book BookShelf::operator[](int i) const
+Book BookShelf::operator[](int i) const
 {
   return v_[i];
 }
 
-Book::Book& BookShelf::operator[](int i)
+Book& BookShelf::operator[](int i)
 {
   return v_[i];
 }
@@ -151,5 +155,47 @@ Book::Book& BookShelf::operator[](int i)
 BookShelf::~BookShelf()
 {
   delete[] v_;
+}
+
+bool operator==(const BookShelf& b, const BookShelf& s)
+{
+  if(b.size()!=s.size())
+    return false;
+  for(int i=0;i<b.size();i++)
+    if(b.at(i)!=s.at(i))
+      return false;
+  return true;
+}
+bool operator!=(const BookShelf& b, const BookShelf& s)
+{
+  return !(b==a);
+}
+bool operator<(const BookShelf& b, const BookShelf& s)
+{
+  if(b.size)=<s.size())
+    return true;
+  return false;
+}
+bool operator>(const BookShelf& b, const BookShelf& s)
+{
+  if(b.size>s.size())
+    return true;
+  return false;
+}
+bool operator<=(const BookShelf& b, const BookShelf& s)
+{
+  return !(s<b);
+}
+bool operator>=(const BookShelf& b, const BookShelf& s)
+{
+  return !(b<s);
+}
+
+std::ostream& operator<<(std::ostream& os, const BookShelf& b){
+  std::string s="Books:";
+  for(int i=0;i<b.size();i++)
+    s+='\n'+b.at(i);
+  s+='\n';
+  return os<<s;
 }
 
