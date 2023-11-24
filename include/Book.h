@@ -16,7 +16,7 @@ public:
 	Book();
 	// Book(std::string name, std::string surname, std::string title, std::string isbn, bool is_available=kDefaultAvailable);
 	Book(Book&& old);       //Move constructor
-	Book(Book& old);        //Costruttore per copia
+	Book(const Book& old);        //Costruttore per copia
 
 	Book& operator=(const Book& old);
 	Book& operator=(Book&& old);
@@ -61,6 +61,6 @@ private:
 	bool operator!=(const Book& a,const Book& b);
 
 //Overload Output
-std::ostream& operator<<(std::ostream& os, Book& b);
+std::ostream& operator<<(std::ostream& os, const Book& b);
 
 #endif
