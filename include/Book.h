@@ -1,3 +1,4 @@
+//MANCA setDate(va bene anche così), operator= , data defualt
 #ifndef BOOK_H
 #define BOOK_H
 
@@ -17,6 +18,9 @@ public:
 	Book(Book&& old);       //Move constructor
 	Book(Book& old);        //Costruttore per copia
 
+	Book& operator=(const Book& old);
+	Book& operator=(Book&& old);
+
 	//Funzioni membro
 	std::string name(void) const{ return name_;}
 	std::string surname(void) const {return surname_;}
@@ -30,7 +34,7 @@ public:
 	void setSurname(std::string surname);
 	void setTitle(std::string title);
 	void setIsbn(std::string isbn);
-	void setDate(Date copyright_date);
+	// void setDate(Date copyright_date);
 	void setAvailable(bool is_available);
 
 	//Per gestire il prestito o il ritorno del libro
