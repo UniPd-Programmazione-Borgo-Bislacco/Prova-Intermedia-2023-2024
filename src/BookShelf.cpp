@@ -1,20 +1,22 @@
-#include <ostream>
+#include <iostream>
 #include <string>
 #include <stdexcept>
 #include "../include/BookShelf.h"
 #include "../include/Book.h"
 
-BookShelf::BookShelf(int size=1)
+BookShelf::BookShelf(int size)
 {
   if(size>=0){
-    size_=size;
+    size_=0;
     v_=new Book*[size];
     capacity_=size;
   }else{
-    size_=1;
+    size_=0;
     v_=new Book*[1];
     capacity_=1;
   }
+  for(int i=0;i<size_;i++)
+    v_[i]=nullptr;
 }
 
 BookShelf::BookShelf(const std::initializer_list<Book>& lst)
@@ -30,7 +32,7 @@ BookShelf::BookShelf(const std::initializer_list<Book>& lst)
 BookShelf::BookShelf(const BookShelf& old)
   : size_{old.size()}, v_{new Book*[old.size()]}, capacity_{old.size()}
 {
-  for(int i=0;i<old.size()-1;i++){
+  for(int i=0;i<old.size();i++){
     v_[i]=new Book{old[i]};
   }
 }
@@ -39,18 +41,19 @@ BookShelf::BookShelf(BookShelf&& old)
   : size_{old.size()}, v_{new Book*[old.size()]}, capacity_{old.size()}
 {
   v_=old.v_;
-  old.size_=1;
+  old.size_=0;
   old.v_=new Book*[1];
+  old.v_[0]=nullptr;
   old.capacity_=1;
 }
 
 BookShelf& BookShelf::operator=(const BookShelf& b)
 {
   capacity_=b.capacity_;
-  if(size_!=t_s){
+  if(size_!=b.size_){
     int t_s=size_;
     size_=b.size_;
-    for(int i=0;i<t_s)
+    for(int i=0;i<t_s;i++)
       delete v_[i];
     delete[] v_;
     v_=new Book*[size_];
@@ -65,8 +68,9 @@ BookShelf& BookShelf::operator=(BookShelf&& b)
   capacity_=b.capacity_;
   delete[] v_;
   v_=b.v_;
+  b.size_=0;
   b.v_=new Book*[1];
-  b.size_=1;
+  b.v_[0]=nullptr;
   b.capacity_=1;
 }
 
@@ -82,7 +86,7 @@ Book& BookShelf::popBack()
 {
   if (size_<=(capacity_/2))
     reduce(2*capacity_/3);
-  return *v_[size_--];
+  return *v_[(size_--)-1];
 }
 
 Book& BookShelf::at (int i)
@@ -96,6 +100,8 @@ const Book& BookShelf::at (int i) const
 {
   if(i>=size_)
     throw(std::out_of_range("Indice fuori dai limiti"));
+  if(v_[i]==nullptr)
+    throw(std::invalid_argument("Libro non presente"));
   return *v_[i];
 }
 
@@ -110,6 +116,8 @@ Book& BookShelf::safeGet(int i)
 {
   if(i>size_ || i<0)
     throw(std::out_of_range("Indice fuori dai limiti"));
+  if(v_[i]==nullptr)
+    throw(std::invalid_argument("Libro non presente"));
   return *v_[i];
 }
 
@@ -191,12 +199,12 @@ bool operator>=(const BookShelf& b, const BookShelf& s)
 }
 
 std::ostream& operator<<(std::ostream& os, const BookShelf& b){
-  os<<"Books:";
+  os<<"Books: ";
   for(int i=0;i<b.size();i++){
     os<<'\n';
-    os<<b.at(i);
+    try{os<<b.at(i);}
+    catch(std::invalid_argument const& e){os<<"** vuoto **";}
   }
-  os<<'\n';
   return os;
 }
 

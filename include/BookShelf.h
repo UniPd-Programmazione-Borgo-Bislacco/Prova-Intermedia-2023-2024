@@ -7,7 +7,7 @@
 class BookShelf{
 
 public:
-  BookShelf(int size);
+  BookShelf(int size=1);
   BookShelf(const std::initializer_list<Book>& lst);
   BookShelf(const BookShelf& old);
   BookShelf(BookShelf&& old);
