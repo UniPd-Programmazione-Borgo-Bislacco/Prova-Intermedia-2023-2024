@@ -49,6 +49,8 @@ BookShelf::BookShelf(BookShelf&& old)
 
 BookShelf& BookShelf::operator=(const BookShelf& b)
 {
+  if((*this)==b)
+    return *this;
   capacity_=b.capacity_;
   if(size_!=b.size_){
     int t_s=size_;
@@ -59,11 +61,14 @@ BookShelf& BookShelf::operator=(const BookShelf& b)
     v_=new Book*[size_];
   }
   for(int i=0;i<b.size()-1;i++)
-    v_[i]=new Book{b[i]};;
+    v_[i]=new Book{b[i]};
+  return *this;
 }
 
 BookShelf& BookShelf::operator=(BookShelf&& b)
 {
+  if((*this)==b)
+    return *this;
   size_=b.size_;
   capacity_=b.capacity_;
   delete[] v_;
@@ -72,6 +77,7 @@ BookShelf& BookShelf::operator=(BookShelf&& b)
   b.v_=new Book*[1];
   b.v_[0]=nullptr;
   b.capacity_=1;
+  return *this;
 }
 
 void BookShelf::pushBack(const Book& i)
