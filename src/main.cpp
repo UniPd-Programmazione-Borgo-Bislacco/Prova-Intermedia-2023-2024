@@ -20,7 +20,7 @@ void tester(){
     Book mybook("David", "Foster Wallace", "Una cosa divertente che non farò mai più", "887-521-837-4");
     // Book mybook{"David", "Foster Wallace", "Una cosa divertente che non farò mai più", "887-521-837-4"};
     Book mybook2{"David2", "Foster Wallace", "Una cosa divertente che non farò mai più", "847-521-837-4"};
-    // cout<<mybook;
+    cout<<mybook;
 
     //TEST DATA
     cout << "\n--------- DATE: CONTROLLO COSTRUTTORE VUOTO ---------"<< endl;
@@ -152,7 +152,7 @@ void tester(){
     cout << "\n--------- BOOKSHELF: CONTROLLO ASSEGNAZIONE < ---------"<< endl;
 
     cout<<"\n\t - creazione libro < ---------"<<endl;
-    Book new_book("Giorgio","Barberi Squarotti","AUTORI e OPERE","88-268-1570-1",f);
+    Book new_book("Giorgio","Barberi Squarotti","AUTORI e OPERE","88-268-1570-1");
     cout<<"\n\t - assegnazione libro al precedente BookShelf< ---------"<<endl;
     bs4[0]=new_book;
     cout<<bs4<<endl;
