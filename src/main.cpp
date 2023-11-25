@@ -139,6 +139,19 @@ void tester(){
     BookShelf bs2{mybook,mybook2};
     cout<<bs2<<endl;
 
+    cout << "\n--------- BOOKSHELF: CONTROLLO CREAZIONE LIBRERIA A DIMENSIONE FISSA < ---------"<< endl;
+
+    BookShelf bs_b{4,true};
+    cout<<"\n\t - dimensione massima: "<<bs_b.capacity()<<", aggiunta "<<(bs_b.capacity()+1)<<" libri < ---------"<<endl;
+    try{
+      for(int i=0;i<=bs_b.capacity();i++){
+        bs_b.pushBack(mybook);
+        cout<<"Libro numero "<<(i+1)<<" inserito"<<endl;
+      }
+    }catch(std::out_of_range const& e){
+      cout<<e.what()<<endl;
+    }
+
     cout << "\n--------- BOOKSHELF: CONTROLLO COSTRUTTORE PER COPIA < ---------"<< endl;
 
     BookShelf bs3{bs2};

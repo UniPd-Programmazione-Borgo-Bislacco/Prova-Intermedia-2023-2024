@@ -4,7 +4,7 @@
 #include "../include/BookShelf.h"
 #include "../include/Book.h"
 
-BookShelf::BookShelf(int size)
+BookShelf::BookShelf(int size, bool blocked) : kBlocked_{blocked}
 {
   if(size>=0){
     size_=0;
@@ -19,8 +19,8 @@ BookShelf::BookShelf(int size)
     v_[i]=nullptr;
 }
 
-BookShelf::BookShelf(const std::initializer_list<Book>& lst)
-  : size_{lst.size()}, v_{new Book*[lst.size()]}, capacity_{lst.size()}
+BookShelf::BookShelf(const std::initializer_list<Book>& lst, bool blocked)
+  : size_{lst.size()}, v_{new Book*[lst.size()]}, capacity_{lst.size()}, kBlocked_{blocked}
 {
   int i=0;
   for(Book b : lst)
@@ -30,7 +30,7 @@ BookShelf::BookShelf(const std::initializer_list<Book>& lst)
 }
 
 BookShelf::BookShelf(const BookShelf& old)
-  : size_{old.size()}, v_{new Book*[old.size()]}, capacity_{old.size()}
+  : size_{old.size()}, v_{new Book*[old.size()]}, capacity_{old.size()}, kBlocked_{old.kBlocked_}
 {
   for(int i=0;i<old.size();i++){
     v_[i]=new Book{old[i]};
@@ -38,7 +38,7 @@ BookShelf::BookShelf(const BookShelf& old)
 }
 
 BookShelf::BookShelf(BookShelf&& old)
-  : size_{old.size()}, v_{new Book*[old.size()]}, capacity_{old.size()}
+  : size_{old.size()}, v_{new Book*[old.size()]}, capacity_{old.size()}, kBlocked_{old.kBlocked_}
 {
   v_=old.v_;
   old.size_=0;
@@ -82,15 +82,19 @@ BookShelf& BookShelf::operator=(BookShelf&& b)
 
 void BookShelf::pushBack(const Book& i)
 {
-  if (size_>=(2*capacity_/3))
+  if (!(kBlocked_)&&size_>=(2*capacity_/3))
     reserve(capacity_*2);
-  v_[size_]=new Book{i};
-  size_++;
+  if (size_!=capacity_)
+    v_[size_++]=new Book{i};
+  else
+    throw(std::out_of_range("Libreria piena"));
 }
 
 Book& BookShelf::popBack()
 {
-  if (size_<=(capacity_/2))
+  if(size_==0)
+    throw (std::out_of_range("Indice fuori dai limiti"));
+  if(!(kBlocked_)&&size_<=(capacity_/2))
     reduce(2*capacity_/3);
   return *v_[(size_--)-1];
 }
@@ -131,6 +135,8 @@ void BookShelf::reserve(unsigned d)
 {
   if(d<=capacity_)
     return;
+  if(kBlocked_)
+    throw(std::out_of_range("Dimensione della libreria bloccata"));
   Book** t=new Book*[d];
   for(unsigned i=0;i<size_;i++){
     t[i]=v_[i];
@@ -144,6 +150,10 @@ void BookShelf::reduce(unsigned d)
 {
   if(d>=capacity_)
     return;
+  if(kBlocked_)
+    throw(std::out_of_range("Dimensione della libreria bloccata"));
+  if(d<=0)
+    throw(std::invalid_argument("Dimensione impossibile"));
   Book** t=new Book*[d];
   for(unsigned i=0;i<size_;i++){
     t[i]=v_[i];
