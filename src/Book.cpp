@@ -56,7 +56,7 @@ void Book::back(){
 }
 //TODO - controlla move copy =
 Book& Book::operator=(const Book& old){
-  if(old==(*this))
+  if(this==&old)
     return *this;
   setName(old.name_);
 	setSurname(old.surname_);
@@ -67,7 +67,7 @@ Book& Book::operator=(const Book& old){
   return *this;
 }
 Book& Book::operator=(Book&& old){
-  if(old==(*this))
+  if(&old==this)
     return *this;
   setName(old.name_);
 	setSurname(old.surname_);

@@ -49,7 +49,7 @@ BookShelf::BookShelf(BookShelf&& old)
 
 BookShelf& BookShelf::operator=(const BookShelf& b)
 {
-  if((*this)==b)
+  if(this==&b)
     return *this;
   capacity_=b.capacity_;
   if(size_!=b.size_){
@@ -67,7 +67,7 @@ BookShelf& BookShelf::operator=(const BookShelf& b)
 
 BookShelf& BookShelf::operator=(BookShelf&& b)
 {
-  if((*this)==b)
+  if(this==&b)
     return *this;
   size_=b.size_;
   capacity_=b.capacity_;

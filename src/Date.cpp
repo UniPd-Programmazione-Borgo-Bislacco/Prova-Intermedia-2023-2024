@@ -23,7 +23,7 @@ Date::Date (int y, Month m, int d) //int y=Date().year(), Month m=Date().month()
 
 Date& Date::operator=(const Date& a)
 {
-   if(*this==a)
+   if (this == &a) 
      return *this;
    y_=a.year();
    m_=a.month();
@@ -33,7 +33,7 @@ Date& Date::operator=(const Date& a)
 
 Date& Date::operator=(Date&& a)
 {
-if(*this==a)
+if(this==&a)
 return *this;
    y_=a.year();
    m_=a.month();
