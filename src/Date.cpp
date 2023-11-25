@@ -4,23 +4,25 @@
 
 Date::Date()
 {
-  y_=1709;
-  m_=Month::jan;
-  d_=1;
+    time_t current_time = time(NULL);
+	tm* local_current_time = localtime(&current_time);
+
+	d_ = local_current_time->tm_mday;
+	m_ = static_cast<Date::Month>(local_current_time->tm_mon+1);
+	y_ = local_current_time->tm_year + 1900; 
 }
 
-Date::Date (int y, Month m, int d)
-    {
-        if(!isValid(y, m, d))
-            throw std::invalid_argument("Data non valida");
-        y_= {y}; 
-        m_= {m}; 
-        d_= {d};
-    }
+Date::Date (int y, Month m, int d) //int y=Date().year(), Month m=Date().month(), int d=Date().day()
+{
+    if(!isValid(y, m, d))
+        throw std::invalid_argument("Data non valida");
+    y_= {y}; 
+    m_= {m}; 
+    d_= {d};
+}
 
-//Non so se sia corretto passarlo come reference const
-
-Date& Date::operator=(const Date& a){
+Date& Date::operator=(const Date& a)
+{
    if(*this==a)
      return *this;
    y_=a.year();
@@ -36,9 +38,9 @@ return *this;
    y_=a.year();
    m_=a.month();
    d_=a.day();
-   a.setDate(1709,Month::jan,1);
+   a = Date(); 
    return *this;
- }
+}
 
 void Date::setDate(int y, Month m, int d)
 {
@@ -54,17 +56,12 @@ void Date::setDate(int y, Month m, int d)
 Date::Date(Date&& old)
     : y_{old.year()}, m_{old.month()}, d_{old.day()}
 {
-  old.setDate(1709,Month::jan,1);
+    old = Date();
 }
 //Copy Constructor
 Date::Date(const Date& old)
     : y_{old.year()}, m_{old.month()}, d_{old.day()}
-{
-}
-
-// int Date::day() const{return d_;}
-// Date::month() {return m_;}
-// int Date::year() const{return y_;}
+{}
 
 bool Date::isValid(int y, Month m, int d){     // con parametri
     if(y<1582)
@@ -76,17 +73,10 @@ bool Date::isValid(int y, Month m, int d){     // con parametri
         case(11):
             if(d<1 || d>30) return false; break;
         case(2):
-            if(isLeap()){
-                if(d<1 || d>29)
-                {
-                    return false;
-                }
-            }
-            else{
-                if(d<1 || d>28){
-                    return false;
-                }
-            }
+            if(isLeap())
+                if(d<1 || d>29)return false;
+            else
+                if(d<1 || d>28) return false;
             break;
         default:if(d<1 || d>31) return false;
     }
@@ -110,42 +100,22 @@ bool operator!=(const Date& a, const Date& b){
     return a.year()!=b.year() || a.month()!=b.month() || a.day()!=b.day();
 }
 bool operator>(const Date& a, const Date& b){
-    if(a.year()>b.year())
-        return true;
-    if(a.year()==b.year() && a.month()>b.month())
-        return true;
-    if(a.year()==b.year() && a.month()==b.month() && a.day()>b.day())
-        return true;
-    return false;
+    if(a.year()==b.year()){
+        if(a.month()==b.month())
+            return a.day()>b.day();
+        return a.month()>b.month();
+    }
+    return a.year()>b.year();
 }
-bool operator<(const Date& a, const Date& b){
-    if(a.year()<b.year())
-        return true;
-    if(a.year()==b.year() && a.month()<b.month())
-        return true;
-    if(a.year()==b.year() && a.month()==b.month() && a.day()<b.day())
-        return true;
-    return false;
+bool operator<(const Date& a, const Date& b){ 
+    return !(a>b || a==b);
 }
 bool operator>=(const Date& a, const Date& b){
-    if(a.year()>=b.year())
-        return true;
-    if(a.year()==b.year() && a.month()>=b.month())
-        return true;
-    if(a.year()==b.year() && a.month()==b.month() && a.day()>=b.day())
-        return true;
-    return false;
+    return !(a<b);
 }
 bool operator<=(const Date& a, const Date& b){
-    if(a.year()<=b.year())
-        return true;
-    if(a.year()==b.year() && a.month()<=b.month())
-        return true;
-    if(a.year()==b.year() && a.month()==b.month() && a.day()<=b.day())
-        return true;
-    return false;
+   return !(a>b);
 }
-//TODO: trova modo senza static_cast cast
 std::ostream& operator<<(std::ostream& os, Date a)
 {
     return os << a.day() << "/" << a.month() << "/" << a.year();

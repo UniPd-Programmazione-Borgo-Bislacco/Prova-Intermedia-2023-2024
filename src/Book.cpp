@@ -4,13 +4,16 @@
 // #include <string>
 #include <stdexcept>
 
-//TODO controllo DATA
+//TODO vedi se dovrebbe esistere
+Book::Book()
+:name_{""},surname_{""},title_{""},isbn_{""},copyright_date_{Date()},is_available_{false}
+{}
 Book::Book(std::string name, std::string surname, std::string title, std::string isbn, Date copyright_date,  bool is_available) :
     name_{name.size()<1? throw std::invalid_argument("Inserire un nome valido."):name},
     surname_{surname.size()<1? throw std::invalid_argument("Inserire un cognome valido."):surname},
     title_{title.size()<1? throw std::invalid_argument("Inserire un title valido."):title},
     isbn_{isbn.size() != 13?throw std::invalid_argument("Il codice ISBN deve essere di 13 caratteri."):isbn},
-    copyright_date_{copyright_date}, 
+    copyright_date_{copyright_date>Date()?throw std::invalid_argument("La data non ouò essere futura."):copyright_date}, 
     is_available_{is_available}
 
 {}
@@ -18,11 +21,7 @@ Book::Book(std::string name, std::string surname, std::string title, std::string
 Book::Book(Book&& old)
   :name_{old.name_},surname_{old.surname_},title_{old.title_},isbn_{old.isbn_},copyright_date_{old.copyright_date_},is_available_{old.is_available_}
 {
-  old.setName("");
-  old.setSurname("");
-  old.setTitle("");
-  old.setIsbn("");
-  old.setAvailable(false);
+  old=Book();
 }
 Book::Book(const Book& old)
   :name_{old.name_},surname_{old.surname_},title_{old.title_},isbn_{old.isbn_},copyright_date_{old.copyright_date_},is_available_{old.is_available_} 
@@ -42,7 +41,7 @@ void Book::setTitle(std::string title){title_ = title;}
 void Book::setName(std::string name){name_ = name;}
 void Book::setSurname(std::string surname){surname_ = surname;}
 
-// void Book::setDate(Date copyright_date){copyright_date_ = copyright_date;}
+void Book::setDate(Date copyright_date){copyright_date_ = copyright_date;}
 
 void Book::setAvailable(bool is_available){is_available_ = is_available;}
 
