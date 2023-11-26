@@ -17,7 +17,7 @@ public:
     BookShelf &operator=(BookShelf &&b);      // Move copy, non copia kBlocked
 
     void pushBack(const Book &b); // Può chiamare reserve(int) in caso l'array sia quasi pieno
-    Book &popBack();              // Può chiamare reduce(int) in caso l'array sia quasi vuoto
+    void &popBack();              // Può chiamare reduce(int) in caso l'array sia quasi vuoto
 
     Book &at(int i);
     const Book &at(int i) const;
