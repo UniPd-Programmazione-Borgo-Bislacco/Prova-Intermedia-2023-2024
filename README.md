@@ -1,5 +1,5 @@
 # Prova-Intermedia-2023-2024
-# Per eseguirlo
+## Per eseguirlo
 Potete compilare ed eseguirlo manualmente:
 - `cd src/`
 - `g++ main.cpp Date.cpp Book.cpp BookShelf.cpp -o main`
@@ -9,6 +9,10 @@ Oppure tramite CMake:
 - `cmake .`
 - `make && make install`
 - `./Prova-Intermedia-2023-2024`
+
+## Style guide
+Abbiamo seguito, il più possibile, i (fondamenti dello stile di C++)[https://google.github.io/styleguide/cppguide.html] . Vale a dire funzioni in camel case, variabili in snake case, costanti camel case con una "k" iniziale ecc...
+https://google.github.io/styleguide/cppguide.html
 
 # Spiegazione del problema logico della data di default in Book
 Nel pdf era richiesto che Book avesse una data, che poi viene stampata. Però viene anche richiesto che venga creato un Book senza passare una data per parametro.
