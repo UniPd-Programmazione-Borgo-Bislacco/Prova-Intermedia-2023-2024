@@ -13,8 +13,7 @@ Oppure tramite CMake:
 ```
 mkdir build
 cd build
-cmake 
-make
+cmake ..
 ./Prova-Intermedia-2023-2024
 ```
 
