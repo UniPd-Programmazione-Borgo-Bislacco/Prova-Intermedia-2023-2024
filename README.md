@@ -3,16 +3,22 @@
 Potete compilare ed eseguirlo manualmente:
 
 ``` cd src/ ```
-``` g++ main.cpp Date.cpp Book.cpp BookShelf.cpp -o main ```
-```./main ```
 
+```g++ main.cpp Date.cpp Book.cpp BookShelf.cpp -o main```
+
+``` ./main ```
 
 Oppure tramite CMake:
-```mkdir build ```
-```cd build```
-```cmake ..```
-```make```
-````./Prova-Intermedia-2023-2024```
+
+``` mkdir build```
+
+```cd build ```
+
+```cmake ```
+
+``` make```
+
+```./Prova-Intermedia-2023-2024```
 
 ## Style guide
 Abbiamo seguito, il più possibile, i [fondamenti dello stile di C++](https://google.github.io/styleguide/cppguide.html) . Vale a dire funzioni in camel case, variabili in snake case, costanti camel case con una "k" iniziale ecc...
