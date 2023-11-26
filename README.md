@@ -6,8 +6,10 @@ Potete compilare ed eseguirlo manualmente:
 - `./main`
 
 Oppure tramite CMake:
-- `cmake .`
-- `make && make install`
+- `mkdir build`
+- `cd build `
+- `cmake ..`
+- `make`
 - `./Prova-Intermedia-2023-2024`
 
 ## Style guide
