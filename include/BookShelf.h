@@ -47,6 +47,7 @@ bool operator<(const BookShelf &b, const BookShelf &s);
 bool operator>(const BookShelf &b, const BookShelf &s);
 bool operator<=(const BookShelf &b, const BookShelf &s);
 bool operator>=(const BookShelf &b, const BookShelf &s);
+//Per debugging
 std::ostream &operator<<(std::ostream &os, const BookShelf &b);
 
 #endif

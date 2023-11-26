@@ -101,7 +101,7 @@ void BookShelf::popBack()
         throw(std::out_of_range("Indice fuori dai limiti"));
     if (!(kBlocked_) && size_ <= (capacity_ / 2))
         reduce(2 * capacity_ / 3);
-    delete v_[(size_--) - 1];
+    delete v_[--size_];
 }
 
 Book &BookShelf::at(int i)
