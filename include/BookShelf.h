@@ -7,16 +7,16 @@
 class BookShelf{
 
 public:
-  BookShelf(int size=1);
-  BookShelf(const std::initializer_list<Book>& lst);
-  BookShelf(const BookShelf& old);
-  BookShelf(BookShelf&& old);
+  BookShelf(int size=1, bool blocked=false);          //Costruttore con solo la dimensione in ingresso, utilizzabile di default
+  BookShelf(const std::initializer_list<Book>& lst, bool blocked=false);  //Costruttore con initializer list
+  BookShelf(const BookShelf& old);                    //Costruttore per copia
+  BookShelf(BookShelf&& old);                         //Move constructor
 
-  BookShelf& operator=(const BookShelf& b);
-  BookShelf& operator=(BookShelf&& b);
+  BookShelf& operator=(const BookShelf& b);           //Deep copy, non copia kBlocked
+  BookShelf& operator=(BookShelf&& b);                //Move copy, non copia kBlocked
 
-  void pushBack(const Book& b);
-  Book& popBack();
+  void pushBack(const Book& b);                       //Può chiamare reserve(int) in caso l'array sia quasi pieno
+  Book& popBack();                                    //Può chiamare reduce(int) in caso l'array sia quasi vuoto
 
   Book& at (int i);
   const Book& at (int i) const;
@@ -24,19 +24,20 @@ public:
   void safeSet(int i, const Book& n);
   Book& safeGet(int i);
 
-  void reserve(unsigned d);
-  void reduce(unsigned d);
+  void reserve(unsigned d);                           //Rialloca l'array con una dimensione maggiore
+  void reduce(unsigned d);                            //Rialloca l'array con una dimensione minore
   unsigned size() const     {return size_;};
   unsigned capacity() const {return capacity_;};
 
   Book operator[](int i) const;
   Book& operator[](int i);
 
-  ~BookShelf();
+  ~BookShelf();                                       //Distruttore
 private:
-  Book** v_;
-  unsigned long int size_;
-  unsigned long int capacity_;
+  Book** v_;                                          //Puntatore utilizzato per puntare ad un array di puntatori a Book
+  unsigned long int size_;                            //Numero di Libri presenti
+  unsigned long int capacity_;                        //Capacità massima
+  const bool kBlocked_;
 };
 
 bool operator==(const BookShelf& b, const BookShelf& s);

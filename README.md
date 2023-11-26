@@ -1,32 +1,20 @@
 # Prova-Intermedia-2023-2024
-# GitExplained
-Brevi spiegazioni su Git
+# Per eseguirlo
+Potete compilare ed eseguirlo manualmente:
+- `cd src/`
+- `g++ main.cpp Date.cpp Book.cpp BookShelf.cpp -o main`
+- `./main`
 
-Per la prova intermedia teniamo un branch main,e uno test al massimo. Oggi provo già a vedere cosa conviene.
-## Per ora facciamo sul main
+Oppure tramite CMake:
+- `cmake .`
+- `make && make install`
+- `./Prova-Intermedia-2023-2024`
 
-## Converrebbe fare dei branch
+# Spiegazione del problema logico della data di default in Book
+Nel pdf era richiesto che Book avesse una data, che poi viene stampata. Però viene anche richiesto che venga creato un Book senza passare una data per parametro.
+Il che porta a diverse soluzioni
+1. La soluzione più semplice: creare una data di default (che potrebbe essere 1/1/1970, nascita del timestamp). Però è ovviamente logicamente sbagliato, in quanto si sta assegnando una data valida e, apparentemente, casuale ad un oggetto a cui manca quel parametro.
+2. Utilizzare diversi costruttori: si avrebbe però comunque bisogno di un costruttore di default di date. Quindi si avrebbe comunque una data "casuale" ma valida di default.
+3. Creare la classe Date ad hoc. Quindi o si crea un costruttore di Date apposta. Oppure fare che Date accetti una data che non esiste (per esempio l'anno 0) così per permettere di controllare se la data sia presente o meno controllando in Book se l'anno == 0. Questa soluzione rovinerebbe completamente il senso di Date.
 
-Andate qui
-
-![image](https://github.com/UniPd-Programmazione-Borgo-Bislacco/Prova-Intermedia-2023-2024/assets/84403208/5f403e90-fc6e-4775-97c9-3a51d3be464e)
-![image](https://github.com/UniPd-Programmazione-Borgo-Bislacco/Prova-Intermedia-2023-2024/assets/84403208/807bb986-a115-42c7-9897-a85a5fbd8b03)
-
-Create un branch con la task che dovete fare.
-
-Pullate da quel branch. Usando Vs Code è molto comodo farlo senza sbagliare. Altrimenti: 
-- git pull origin nome_branch
-
-Poi come sempre:
-- git add .
-- git commit -m "Descrizione"
-- git push origin nome_branch
-  
-Se dovesse dar problemi perché prima avete pushato in un altro branch dovreste fare:
-  
-- git push origin branch_originario:branch_nuovo
-
-## TENETE A MENTE
-  Potete fare più commit (e quindi più descrizioni per ogni modifica) senza pushare ogni volta. Ancora una volta è comodo VS code, altrimenti:
-  - git add file_da_mettere_nel_commit
-  - git commit -m "descrizione"
+   
