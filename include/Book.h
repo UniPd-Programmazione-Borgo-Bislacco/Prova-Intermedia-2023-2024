@@ -13,6 +13,7 @@ public:
 //Costruttori 
 	Book();
 	//Costruttore con parametri. La data di defualt è 1/1/1709: nascita del copyright. 
+	//Leggere README.md!
 	Book(std::string name, std::string surname, std::string title, std::string isbn, Date copyright_date=Date(1709,Date::Month::jan, 1) ,bool is_available=kDefaultAvailable);
 
 	Book(Book&& old);       //Move constructor
@@ -29,8 +30,6 @@ public:
 	Date date(void)  const {return copyright_date_;}
 
 	bool isAvailable(void) const {return is_available_;}
-	//TODO: togliere flag
-	bool isDateProvided(void)const{return is_date_provided_;}
 	void setName(std::string name);
 	void setSurname(std::string surname);
 	void setTitle(std::string title);
@@ -51,8 +50,6 @@ private:
 	std::string title_;
 	std::string isbn_;
 	Date copyright_date_;
-	//Flag usata per controllare se è stata passata una data
-	bool is_date_provided_;
 	//Flag per controllare se il libro è disponibile(true)  o in prestito (false)
 	bool is_available_;
 	//Preferisco usare un valore di default anche se è solo un booleano in caso si voglia cambiare se un libro è disponibile di default o meno

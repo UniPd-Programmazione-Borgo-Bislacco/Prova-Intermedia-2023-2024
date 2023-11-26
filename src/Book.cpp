@@ -1,10 +1,8 @@
 #include "../include/Book.h"
 #include <iostream>
 
-// #include <string>
 #include <stdexcept>
 
-//TODO vedi se dovrebbe esistere
 Book::Book()
 :name_{""},surname_{""},title_{""},isbn_{""},copyright_date_{Date()},is_available_{false}
 {}
@@ -54,7 +52,6 @@ void Book::back(){
     if(is_available_) throw std::logic_error("Il libro era già disponibile. Non può esser stato restituito.");
     setAvailable(true);
 }
-//TODO - controlla move copy =
 Book& Book::operator=(const Book& old){
   if(this==&old)
     return *this;
