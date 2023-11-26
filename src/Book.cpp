@@ -44,11 +44,13 @@ void Book::setAvailable(bool is_available){is_available_ = is_available;}
 
 void Book::rent(){
     if(!is_available_) throw std::logic_error("Il libro è già in prestito!");
-    setAvailable(true);
+    std::cout<<"Libro dato in prestito con successo!"<<std::endl;
+    setAvailable(false);
 }
 
 void Book::back(){
     if(is_available_) throw std::logic_error("Il libro era già disponibile. Non può esser stato restituito.");
+    std::cout<<"Libro restituito con successo!"<<std::endl;
     setAvailable(true);
 }
 Book& Book::operator=(const Book& old){

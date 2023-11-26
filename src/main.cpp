@@ -5,6 +5,7 @@
 #include <string>
 #include <stdexcept>
 
+//utilizzato solo per il tester per comodità
 using namespace std;
 
 void tester();
@@ -17,10 +18,24 @@ void tester(){
     Date::Month f {Date::Month::mar};
 
     Date d(2020,Date::Month::mar,1);
+    cout << "\n--------- TEST RICHIESTI DA CONSEGNA ---------"<< endl;
+
     Book mybook("David", "Foster Wallace", "Una cosa divertente che non farò mai più", "887-521-837-4");
-    // Book mybook{"David", "Foster Wallace", "Una cosa divertente che non farò mai più", "887-521-837-4"};
-    Book mybook2{"David2", "Foster Wallace", "Una cosa divertente che non farò mai più", "847-521-837-4"};
+    Book mybook2{"Howard Philips", "Lovecraft", "Cthulhu - racconti del mito", "9788804669449",{2016, Date::Month::nov,8}};
     cout<<mybook;
+    BookShelf shelf(10);
+    cout<<"-È disponibile il primo libro?"<<endl;
+    if(mybook.isAvailable()){
+        cout<<"-Sì"<<endl;
+    }
+    cout<<"-Lo prendo"<<endl;
+    mybook.rent();
+    mybook.back();
+    
+    shelf.pushBack(mybook);
+    cout<<"Libro sullo scaffale di "<<shelf.size()<< " libri: "<< shelf[0]<<endl;
+    shelf.popBack();
+    cout<<"Lo scaffale ha "<<shelf.size()<< "libri. "<<endl;
 
     //TEST DATA
     cout << "\n--------- DATE: CONTROLLO COSTRUTTORE VUOTO ---------"<< endl;
