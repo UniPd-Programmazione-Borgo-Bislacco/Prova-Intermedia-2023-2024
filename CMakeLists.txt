@@ -1,6 +1,10 @@
-cmake_minimum_required(VERSION 3.5.0)
-project(progetto_intermedio VERSION 0.1.0 LANGUAGES C CXX)
+cmake_minimum_required(VERSION 2.8)
+project(Prova-Intermedia-2023-2024)
 
-add_executable(progetto_intermedio src/main.cpp src/Book.cpp src/Bate.cpp src/BookShelf.cpp)
+set(CMAKE_CXX_STANDARD 14)
 
-include_directories([SYSTEM] "include")
+include_directories(include)
+
+file(GLOB SOURCES "src/*.cpp")
+
+add_executable(Prova-Intermedia-2023-2024 ${SOURCES})
