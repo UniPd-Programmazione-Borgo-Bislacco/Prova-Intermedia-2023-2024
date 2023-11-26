@@ -95,25 +95,25 @@ void BookShelf::pushBack(const Book &i)
         throw(std::out_of_range("Libreria piena"));
 }
 
-Book &BookShelf::popBack()
+void &BookShelf::popBack()
 {
     if (size_ == 0)
         throw(std::out_of_range("Indice fuori dai limiti"));
     if (!(kBlocked_) && size_ <= (capacity_ / 2))
         reduce(2 * capacity_ / 3);
-    return *v_[(size_--) - 1];
+    delete v_[(size_--) - 1];
 }
 
 Book &BookShelf::at(int i)
 {
-    if (i >= size_)
+    if (i >= size_ || i < 0)
         throw(std::out_of_range("Indice fuori dai limiti"));
     return *v_[i];
 }
 
 const Book &BookShelf::at(int i) const
 {
-    if (i >= size_)
+    if (i >= size_ || i < 0)
         throw(std::out_of_range("Indice fuori dai limiti"));
     if (v_[i] == nullptr)
         throw(std::invalid_argument("Libro non presente"));
