@@ -197,7 +197,7 @@ void tester(){
     cout<<"\n\t - capacita' iniziale: "<<bs4.capacity()<<" < ---------"<<endl;
     for(int i=0;i<79;i++)
       bs4.popBack();
-    Book last_book=bs4.popBack();
+    Book last_book=bs4[bs4.size()-1];
     cout<<"\n\t - capacita' finale: "<<bs4.capacity()<<" ed ultimo libro estratto: < ---------"<<endl<<endl;
     cout<<last_book<<endl;
 

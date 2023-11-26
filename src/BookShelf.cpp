@@ -95,7 +95,7 @@ void BookShelf::pushBack(const Book &i)
         throw(std::out_of_range("Libreria piena"));
 }
 
-void &BookShelf::popBack()
+void BookShelf::popBack()
 {
     if (size_ == 0)
         throw(std::out_of_range("Indice fuori dai limiti"));
