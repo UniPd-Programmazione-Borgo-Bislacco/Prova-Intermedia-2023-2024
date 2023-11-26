@@ -4,8 +4,10 @@
 #include <stdexcept>
 
 Book::Book()
-:name_{""},surname_{""},title_{""},isbn_{""},copyright_date_{Date()},is_available_{false}
+:name_{""},surname_{""},title_{""},isbn_{""},copyright_date_{Date()},is_available_{true}
 {}
+//Ho utilizzato la lista di inizializzazione perché altrimenti, facendo i controlli nel costuttore, 
+//questo li avrebbe prima assegnati, poi controllati e poi ri-assegnati.
 Book::Book(std::string name, std::string surname, std::string title, std::string isbn, Date copyright_date,  bool is_available) :
     name_{name.size()<1? throw std::invalid_argument("Inserire un nome valido."):name},
     surname_{surname.size()<1? throw std::invalid_argument("Inserire un cognome valido."):surname},
@@ -23,9 +25,7 @@ Book::Book(Book&& old)
 }
 Book::Book(const Book& old)
   :name_{old.name_},surname_{old.surname_},title_{old.title_},isbn_{old.isbn_},copyright_date_{old.copyright_date_},is_available_{old.is_available_} 
-{
-
-}
+{}
 
 void Book::setIsbn(std::string isbn){
   if (isbn.size() != 13) {
@@ -33,7 +33,6 @@ void Book::setIsbn(std::string isbn){
   }
   isbn_ = isbn;
 }
-
 
 void Book::setTitle(std::string title){title_ = title;}
 void Book::setName(std::string name){name_ = name;}
@@ -45,7 +44,7 @@ void Book::setAvailable(bool is_available){is_available_ = is_available;}
 
 void Book::rent(){
     if(!is_available_) throw std::logic_error("Il libro è già in prestito!");
-    setAvailable(false);
+    setAvailable(true);
 }
 
 void Book::back(){

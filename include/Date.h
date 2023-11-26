@@ -12,7 +12,7 @@ public:
 //Costruttori
    
     Date ();                            //Costruttore di defualt: mettendola a quella odierna
-    Date (int y, Month m, int d);
+    Date (int, Month, int);       //Costruttore con parametri
     Date(Date&& old);                   //Move constructor
     Date(const Date& old);              //Costruttore per copia
 
@@ -21,6 +21,7 @@ public:
     Date& operator=(const Date& a);
     Date& operator=(Date&& a);
 
+	//Definite nell'header perché sono inline (v. correzione lab2)
     int day() const{return d_;};
     Month month() const{return m_;};
     int year() const{return y_;};
@@ -32,7 +33,7 @@ private:
     bool isValid(int y, Month m, int d); //Controllo validità della data
 };
 
-//Overload operatori. Helper perché non alterano i valori interni dell'oggetto. Commutatività per operatori binari
+//Overload operatori. Helper perché non alterano i valori interni dell'oggetto.
 bool operator==(const Date& a, const Date& b);
 bool operator!=(const Date& a, const Date& b);
 bool operator>(const Date& a, const Date& b);

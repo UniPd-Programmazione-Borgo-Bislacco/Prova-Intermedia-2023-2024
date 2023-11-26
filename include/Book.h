@@ -23,13 +23,14 @@ public:
 	Book& operator=(Book&& old);
 
 	//Funzioni membro
+	//Definite nell'header perché sono inline (v. correzione lab2)
 	std::string name(void) const{ return name_;}
 	std::string surname(void) const {return surname_;}
 	std::string title(void) const {return title_;}
 	std::string isbn(void)  const {return isbn_;}
 	Date date(void)  const {return copyright_date_;}
-
 	bool isAvailable(void) const {return is_available_;}
+
 	void setName(std::string name);
 	void setSurname(std::string surname);
 	void setTitle(std::string title);
@@ -56,10 +57,12 @@ private:
   	static constexpr int kDefaultAvailable = true;
 	// static constexpr Date kDefaultDate = Date(1709,Date::Month::jan, 1);
 };
-	bool operator==(const Book& a,const Book& b);
-	bool operator!=(const Book& a,const Book& b);
 
 //Overload Output
+//Overload operatori. Helper perché non alterano i valori interni dell'oggetto. Commutatività per operatori binari
+
+bool operator==(const Book& a,const Book& b);
+bool operator!=(const Book& a,const Book& b);
 std::ostream& operator<<(std::ostream& os, const Book& b);
 
 #endif
