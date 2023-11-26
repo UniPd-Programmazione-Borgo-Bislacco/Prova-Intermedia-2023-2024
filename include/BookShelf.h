@@ -12,8 +12,8 @@ public:
   BookShelf(const BookShelf& old);                    //Costruttore per copia
   BookShelf(BookShelf&& old);                         //Move constructor
 
-  BookShelf& operator=(const BookShelf& b);           //Deep copy
-  BookShelf& operator=(BookShelf&& b);                //Move copy
+  BookShelf& operator=(const BookShelf& b);           //Deep copy, non copia kBlocked
+  BookShelf& operator=(BookShelf&& b);                //Move copy, non copia kBlocked
 
   void pushBack(const Book& b);                       //Può chiamare reserve(int) in caso l'array sia quasi pieno
   Book& popBack();                                    //Può chiamare reduce(int) in caso l'array sia quasi vuoto
