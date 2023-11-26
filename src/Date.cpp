@@ -12,7 +12,7 @@ Date::Date()
 	y_ = local_current_time->tm_year + 1900; 
 }
 
-Date::Date (int y, Month m, int d) //int y=Date().year(), Month m=Date().month(), int d=Date().day()
+Date::Date (int y, Month m, int d) 
 {
     if(!isValid(y, m, d))
         throw std::invalid_argument("Data non valida");
